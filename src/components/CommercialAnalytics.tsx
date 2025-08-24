@@ -5,7 +5,7 @@ import { CommercialPerformanceAnalytics } from './analytics/CommercialPerformanc
 import { RevenueAnalytics } from './analytics/RevenueAnalytics';
 import { ProductAnalytics } from './analytics/ProductAnalytics';
 import { PipelineAnalytics } from './analytics/PipelineAnalytics';
-import type { Contact, Projet, Contrat } from '../../lib/types';
+import type { Contact, Projet, Contrat } from '../lib/types';
 
 interface CommercialAnalyticsProps {
   contacts: Contact[];

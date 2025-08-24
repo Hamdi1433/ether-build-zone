@@ -5,7 +5,7 @@ import { Badge } from '../ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { Progress } from '../ui/progress';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { Contact, Projet, Contrat } from '../../../lib/types';
+import { Contact, Projet, Contrat } from '../../lib/types';
 
 interface CommercialPerformanceAnalyticsProps {
   contacts: Contact[];

@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
-import { Projet, Contrat } from '../../../lib/types';
+import { Projet, Contrat } from '../../lib/types';
 
 interface ProductAnalyticsProps {
   projets: Projet[];
