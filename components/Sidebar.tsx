@@ -1,3 +1,4 @@
+
 import React from 'react';
 import {
   Home,
@@ -13,12 +14,7 @@ import { Button } from './ui/button';
 import { useAuth } from './auth-provider';
 import { useNavigate } from 'react-router-dom';
 
-interface SidebarProps {
-  activeTab: string;
-  setActiveTab: (tab: string) => void;
-}
-
-const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
+const Sidebar = () => {
   const menuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: Home },
     { id: 'projects', label: 'Projets', icon: FolderOpen },
@@ -59,7 +55,6 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
                       : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
                   }`
                 }
-                onClick={() => setActiveTab(item.id)}
               >
                 <item.icon className="w-4 h-4" />
                 <span>{item.label}</span>
