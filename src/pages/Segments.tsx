@@ -1,10 +1,11 @@
+
 import React, { useState, useEffect } from 'react'
 import { useAuth } from '../../components/auth-provider'
 import { useNavigate } from 'react-router-dom'
 import { Layout } from '../../components/Layout'
 import { SegmentsTab } from '../../components/SegmentsTab'
-import { supabase } from '../../lib/supabase'
-import type { Segment, Contact, Projet } from '../../lib/types'
+import { supabase } from '../lib/supabase'
+import type { Segment, Contact, Projet } from '../lib/types'
 
 export default function SegmentsPage() {
   const { user, loading } = useAuth()

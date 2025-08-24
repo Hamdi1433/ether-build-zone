@@ -6,8 +6,8 @@ import { useAuth } from "../../components/auth-provider"
 import { useNavigate } from "react-router-dom"
 import { Layout } from "../../components/Layout"
 import { DashboardTab } from "../../components/DashboardTab"
-import { supabase } from "../../lib/supabase"
-import type { Contact, Projet, Contrat, Campaign, Interaction } from "../../lib/types"
+import { supabase } from "../lib/supabase"
+import type { Contact, Projet, Contrat, Campaign, Interaction } from "../lib/types"
 
 export default function DashboardPage() {
   const { user, loading } = useAuth()
@@ -50,7 +50,7 @@ export default function DashboardPage() {
       setProjets(projetsData || [])
       setContrats(contratsData || [])
       setInteractions(interactionsData || [])
-      setCampaigns([]) // Will be loaded from Supabase once campaigns table is ready
+      setCampaigns([])
 
       // Calculate stats
       const totalContacts = contactsData?.length || 0

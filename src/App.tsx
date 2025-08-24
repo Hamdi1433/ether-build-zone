@@ -1,8 +1,7 @@
 
-import { useState } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider } from '../components/auth-provider'
-import { Toaster } from '../components/ui/toaster'
+import { Toaster } from './components/ui/toaster'
 
 // Import des pages principales
 import DashboardPage from './pages/Dashboard'

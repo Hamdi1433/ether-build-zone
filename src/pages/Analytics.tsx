@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router-dom'
 import { Layout } from '../../components/Layout'
 import { AnalyticsTab } from '../../components/AnalyticsTab'
 import { PipelineAnalyticsAdvanced } from '../../components/analytics/PipelineAnalyticsAdvanced'
-import { supabase } from '../../lib/supabase'
-import type { Contact, Projet, Contrat, Campaign } from '../../lib/types'
+import { supabase } from '../lib/supabase'
+import type { Contact, Projet, Contrat, Campaign } from '../lib/types'
 
 export default function AnalyticsPage() {
   const { user, loading } = useAuth()
@@ -45,7 +45,7 @@ export default function AnalyticsPage() {
       setContacts(contactsData || [])
       setProjets(projetsData || [])
       setContrats(contratsData || [])
-      setCampaigns([]) // Will be loaded from Supabase once campaigns table is ready
+      setCampaigns([])
 
       // Calculate origin analytics
       const originAnalytics = calculateOriginAnalytics(projetsData || [], contratsData || [])
@@ -152,7 +152,7 @@ export default function AnalyticsPage() {
     },
     trends: [],
     topCampaigns: campaigns.slice(0, 5),
-    segmentPerformance: [], // Ensure this is always an array
+    segmentPerformance: [],
     aiInsights: [],
     originAnalytics: stats.originAnalytics || [],
     commercialAnalytics: stats.commercialAnalytics || []

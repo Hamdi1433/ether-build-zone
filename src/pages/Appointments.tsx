@@ -1,10 +1,11 @@
+
 import React, { useState, useEffect } from 'react'
 import { useAuth } from '../../components/auth-provider'
 import { useNavigate } from 'react-router-dom'
 import { Layout } from '../../components/Layout'
 import { AppointmentsTab } from '../../components/AppointmentsTab'
-import { supabase } from '../../lib/supabase'
-import type { Contact } from '../../lib/types'
+import { supabase } from '../lib/supabase'
+import type { Contact } from '../lib/types'
 
 export default function AppointmentsPage() {
   const { user, loading } = useAuth()
@@ -33,7 +34,7 @@ export default function AppointmentsPage() {
         .order('created_at', { ascending: false })
       
       setContacts(contactsData || [])
-      setAppointments([]) // Will be loaded from Supabase once appointments table is ready
+      setAppointments([])
     } catch (error) {
       console.error('Error loading appointments data:', error)
     }
