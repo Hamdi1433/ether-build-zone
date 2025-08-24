@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { Projet, Contrat } from '../../lib/types';
+import { Projet, Contrat } from '../../../lib/types';
 
 interface RevenueAnalyticsProps {
   projets: Projet[];
