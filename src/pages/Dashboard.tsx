@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom"
 import { Layout } from "../../components/Layout"
 import { DashboardTab } from "../../components/DashboardTab"
 import { supabase } from "../lib/supabase"
-import type { Contact, Projet, Contrat, Campaign, Interaction } from "../lib/types"
+import type { Contact, Projet, Contrat, Campaign, Interaction } from "../../lib/types"
 
 export default function DashboardPage() {
   const { user, loading } = useAuth()

@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { Layout } from '../../components/Layout'
 import { AppointmentsTab } from '../../components/AppointmentsTab'
 import { supabase } from '../lib/supabase'
-import type { Contact } from '../lib/types'
+import type { Contact } from '../../lib/types'
 
 export default function AppointmentsPage() {
   const { user, loading } = useAuth()

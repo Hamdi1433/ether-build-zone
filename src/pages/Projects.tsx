@@ -7,7 +7,7 @@ import { ProjectsTab } from '../../components/ProjectsTab'
 import { WorkflowManager } from '../../components/WorkflowManager'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs'
 import { supabase } from '../lib/supabase'
-import type { Contact, Projet } from '../lib/types'
+import type { Contact, Projet } from '../../lib/types'
 
 export default function ProjectsPage() {
   const { user, loading } = useAuth()

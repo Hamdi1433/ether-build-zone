@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { Layout } from '../../components/Layout'
 import { EmailTemplatesTab } from '../../components/EmailTemplatesTab'
 import { supabase } from '../lib/supabase'
-import type { EmailTemplate, Segment } from '../lib/types'
+import type { EmailTemplate, Segment } from '../../lib/types'
 
 export default function EmailTemplatesPage() {
   const { user, loading } = useAuth()
