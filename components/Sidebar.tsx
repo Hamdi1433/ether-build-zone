@@ -1,58 +1,80 @@
-
-import React from 'react'
-import { Link, useLocation } from 'react-router-dom'
-import { cn } from '../lib/utils'
-import { 
-  LayoutDashboard, 
-  Users, 
-  FolderOpen, 
-  BarChart3, 
-  Mail, 
+import React from 'react';
+import {
+  Home,
+  FolderOpen,
+  BarChart,
+  Users,
+  Mail,
   Calendar,
   Settings,
-  Building2,
-  Target,
-  ClipboardList
-} from 'lucide-react'
+} from 'lucide-react';
+import { NavLink } from 'react-router-dom';
+import { Button } from './ui/button';
+import { useAuth } from './auth-provider';
+import { useNavigate } from 'react-router-dom';
 
 interface SidebarProps {
-  navigation: Array<{
-    name: string
-    href: string
-    icon: React.ComponentType<any>
-  }>
+  activeTab: string;
+  setActiveTab: (tab: string) => void;
 }
 
-export function Sidebar({ navigation }: SidebarProps) {
-  const location = useLocation()
+const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
+  const menuItems = [
+    { id: 'dashboard', label: 'Dashboard', icon: Home },
+    { id: 'projects', label: 'Projets', icon: FolderOpen },
+    { id: 'analytics', label: 'Analytics', icon: BarChart },
+    { id: 'segments', label: 'Segments', icon: Users },
+    { id: 'templates', label: 'Templates Email', icon: Mail },
+    { id: 'appointments', label: 'Rendez-vous', icon: Calendar },
+    { id: 'settings', label: 'Paramètres', icon: Settings },
+  ];
+
+  const { signOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      navigate('/login');
+    } catch (error) {
+      console.error('Erreur lors de la déconnexion:', error);
+    }
+  };
 
   return (
-    <div className="flex h-full w-64 flex-col bg-card border-r">
-      <div className="flex h-16 items-center px-6 border-b">
-        <h1 className="text-xl font-bold text-foreground">CRM Pro</h1>
+    <div className="flex flex-col h-screen bg-gray-50 border-r border-gray-200 w-64">
+      <div className="px-6 py-4">
+        <h1 className="text-lg font-semibold">CRM Dashboard</h1>
       </div>
-      <nav className="flex-1 space-y-2 p-4">
-        {navigation.map((item) => {
-          const Icon = item.icon
-          const isActive = location.pathname === item.href
-          
-          return (
-            <Link
-              key={item.name}
-              to={item.href}
-              className={cn(
-                "flex items-center space-x-3 rounded-lg px-3 py-2 text-sm transition-colors",
-                isActive
-                  ? "bg-primary text-primary-foreground"
-                  : "text-muted-foreground hover:bg-muted hover:text-foreground"
-              )}
-            >
-              <Icon className="h-5 w-5" />
-              <span>{item.name}</span>
-            </Link>
-          )
-        })}
+      <nav className="flex-1 px-6">
+        <ul className="space-y-2">
+          {menuItems.map((item) => (
+            <li key={item.id}>
+              <NavLink
+                to={`/${item.id}`}
+                className={({ isActive }) =>
+                  `flex items-center space-x-2 py-2 px-4 rounded-md
+                  ${isActive
+                      ? 'bg-blue-100 text-blue-700 font-medium'
+                      : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                  }`
+                }
+                onClick={() => setActiveTab(item.id)}
+              >
+                <item.icon className="w-4 h-4" />
+                <span>{item.label}</span>
+              </NavLink>
+            </li>
+          ))}
+        </ul>
       </nav>
+      <div className="px-6 py-4">
+        <Button variant="outline" className="w-full" onClick={handleSignOut}>
+          Déconnexion
+        </Button>
+      </div>
     </div>
-  )
-}
+  );
+};
+
+export default Sidebar;

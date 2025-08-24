@@ -1,45 +1,51 @@
 
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import { AuthProvider } from '../components/auth-provider'
-import { Toaster } from './components/ui/toaster'
+import { Toaster } from "@/components/ui/toaster";
+import { Toaster as Sonner } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { AuthProvider } from "./components/auth-provider";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Dashboard from "./pages/Dashboard";
+import Projects from "./pages/Projects";
+import Analytics from "./pages/Analytics";
+import Segments from "./pages/Segments";
+import EmailTemplates from "./pages/EmailTemplates";
+import Settings from "./pages/Settings";
+import Appointments from "./pages/Appointments";
+import BookAppointment from "./pages/BookAppointment";
+import ProjectDetails from "./pages/ProjectDetails";
+import LeadGeneration from "./pages/LeadGeneration";
 
-// Import des pages principales
-import DashboardPage from './pages/Dashboard'
-import ProjectsPage from './pages/Projects'
-import SegmentsPage from './pages/Segments'
-import AnalyticsPage from './pages/Analytics'
-import EmailTemplatesPage from './pages/EmailTemplates'
-import AppointmentsPage from './pages/Appointments'
-import SettingsPage from './pages/Settings'
-import LoginPage from './pages/Login'
-import SignupPage from './pages/Signup'
-import BookAppointmentPage from './pages/BookAppointment'
-import ProjectDetailsPage from './pages/ProjectDetails'
-import LeadGenerationPage from './pages/LeadGeneration'
+const queryClient = new QueryClient();
 
-function App() {
-  return (
-    <BrowserRouter>
-      <AuthProvider>
-        <Routes>
-          <Route path="/" element={<DashboardPage />} />
-          <Route path="/projects" element={<ProjectsPage />} />
-          <Route path="/projects/:id" element={<ProjectDetailsPage />} />
-          <Route path="/segments" element={<SegmentsPage />} />
-          <Route path="/analytics" element={<AnalyticsPage />} />
-          <Route path="/lead-generation" element={<LeadGenerationPage />} />
-          <Route path="/email-templates" element={<EmailTemplatesPage />} />
-          <Route path="/appointments" element={<AppointmentsPage />} />
-          <Route path="/settings" element={<SettingsPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/book-appointment" element={<BookAppointmentPage />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-        <Toaster />
-      </AuthProvider>
-    </BrowserRouter>
-  )
-}
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <Toaster />
+      <Sonner />
+      <BrowserRouter>
+        <AuthProvider>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/projects/:id" element={<ProjectDetails />} />
+            <Route path="/analytics" element={<Analytics />} />
+            <Route path="/segments" element={<Segments />} />
+            <Route path="/templates" element={<EmailTemplates />} />
+            <Route path="/appointments" element={<Appointments />} />
+            <Route path="/book/:projectId" element={<BookAppointment />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/lead-generation" element={<LeadGeneration />} />
+          </Routes>
+        </AuthProvider>
+      </BrowserRouter>
+    </TooltipProvider>
+  </QueryClientProvider>
+);
 
-export default App
+export default App;
