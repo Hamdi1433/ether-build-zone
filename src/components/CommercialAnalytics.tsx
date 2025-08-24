@@ -1,11 +1,11 @@
 
 import React from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
-import { CommercialPerformanceAnalytics } from '../components/analytics/CommercialPerformanceAnalytics';
-import { RevenueAnalytics } from '../components/analytics/RevenueAnalytics';
-import { ProductAnalytics } from '../components/analytics/ProductAnalytics';
-import { PipelineAnalytics } from '../components/analytics/PipelineAnalytics';
-import type { Contact, Projet, Contrat } from '../../lib/types';
+import { CommercialPerformanceAnalytics } from './analytics/CommercialPerformanceAnalytics';
+import { RevenueAnalytics } from './analytics/RevenueAnalytics';
+import { ProductAnalytics } from './analytics/ProductAnalytics';
+import { PipelineAnalytics } from './analytics/PipelineAnalytics';
+import type { Contact, Projet, Contrat } from '../lib/types';
 
 interface CommercialAnalyticsProps {
   contacts: Contact[];
