@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react'
 import { useAuth } from '../../components/auth-provider'
 import { useNavigate } from 'react-router-dom'
@@ -5,7 +6,7 @@ import { Layout } from '../../components/Layout'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/tabs'
 import { LandingPageBuilder } from '../../components/LandingPageBuilder'
 import { UTMManager } from '../../components/UTMManager'
-import { FormEngine } from '../../components/FormEngine'
+import { LandingFormBuilder } from '../../components/LandingFormBuilder'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../components/ui/card'
 import { Badge } from '../../components/ui/badge'
 import { Button } from '../../components/ui/button'
@@ -26,7 +27,7 @@ export default function LeadGenerationPage() {
   const { user, loading } = useAuth()
   const navigate = useNavigate()
 
-  if (loading) return null
+  if (loading) return <div>Chargement...</div>
 
   if (!user) {
     navigate('/login')
@@ -97,84 +98,13 @@ export default function LeadGenerationPage() {
           </Card>
         </div>
 
-        {/* KPIs rapides */}
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center">
-                <Eye className="h-5 w-5 text-blue-600" />
-                <div className="ml-2">
-                  <p className="text-xs text-muted-foreground">Impressions</p>
-                  <p className="text-lg font-bold">125K</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center">
-                <MousePointer className="h-5 w-5 text-green-600" />
-                <div className="ml-2">
-                  <p className="text-xs text-muted-foreground">CTR</p>
-                  <p className="text-lg font-bold">2.8%</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center">
-                <Users className="h-5 w-5 text-purple-600" />
-                <div className="ml-2">
-                  <p className="text-xs text-muted-foreground">Leads</p>
-                  <p className="text-lg font-bold">1,234</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center">
-                <PhoneCall className="h-5 w-5 text-orange-600" />
-                <div className="ml-2">
-                  <p className="text-xs text-muted-foreground">RDV</p>
-                  <p className="text-lg font-bold">147</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center">
-                <BarChart3 className="h-5 w-5 text-red-600" />
-                <div className="ml-2">
-                  <p className="text-xs text-muted-foreground">CPC</p>
-                  <p className="text-lg font-bold">0.31€</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center">
-                <TrendingUp className="h-5 w-5 text-emerald-600" />
-                <div className="ml-2">
-                  <p className="text-xs text-muted-foreground">ROAS</p>
-                  <p className="text-lg font-bold">4.2x</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
         {/* Interface principal avec onglets */}
-        <Tabs defaultValue="landing-pages" className="w-full">
+        <Tabs defaultValue="forms" className="w-full">
           <TabsList className="grid w-full grid-cols-4">
+            <TabsTrigger value="forms" className="flex items-center space-x-2">
+              <FormInput className="w-4 h-4" />
+              <span>Formulaires</span>
+            </TabsTrigger>
             <TabsTrigger value="landing-pages" className="flex items-center space-x-2">
               <Globe className="w-4 h-4" />
               <span>Landing Pages</span>
@@ -183,15 +113,15 @@ export default function LeadGenerationPage() {
               <Link2 className="w-4 h-4" />
               <span>Liens UTM</span>
             </TabsTrigger>
-            <TabsTrigger value="forms" className="flex items-center space-x-2">
-              <FormInput className="w-4 h-4" />
-              <span>Formulaires</span>
-            </TabsTrigger>
             <TabsTrigger value="analytics" className="flex items-center space-x-2">
               <BarChart3 className="w-4 h-4" />
               <span>Analytics</span>
             </TabsTrigger>
           </TabsList>
+          
+          <TabsContent value="forms" className="space-y-4">
+            <LandingFormBuilder />
+          </TabsContent>
           
           <TabsContent value="landing-pages" className="space-y-4">
             <LandingPageBuilder />
@@ -199,32 +129,6 @@ export default function LeadGenerationPage() {
           
           <TabsContent value="utm-links" className="space-y-4">
             <UTMManager />
-          </TabsContent>
-          
-          <TabsContent value="forms" className="space-y-4">
-            <Card>
-              <CardHeader>
-                <CardTitle>Aperçu du Formulaire Multi-Étapes</CardTitle>
-                <CardDescription>
-                  Exemple de formulaire optimisé pour la conversion (utilisé sur les landing pages)
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <FormEngine 
-                  formId="demo-form"
-                  pageSlug="demo"
-                  utmParams={{
-                    utm_source: 'demo',
-                    utm_medium: 'internal',
-                    utm_campaign: 'form_preview',
-                    utm_content: 'admin_panel'
-                  }}
-                  onSubmitSuccess={(submission) => {
-                    console.log('Demo submission:', submission)
-                  }}
-                />
-              </CardContent>
-            </Card>
           </TabsContent>
           
           <TabsContent value="analytics" className="space-y-4">

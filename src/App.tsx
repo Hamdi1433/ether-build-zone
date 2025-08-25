@@ -5,10 +5,11 @@ import { TooltipProvider } from "./components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from "react-router-dom";
 import { AuthProvider } from "../components/auth-provider";
-import Sidebar from "./components/Sidebar";
+import { Sidebar } from "./components/Sidebar";
 import Analytics from "./pages/Analytics";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
+import LeadGeneration from "./pages/LeadGeneration";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +40,7 @@ const App = () => {
                 <Route index element={<Navigate to="/dashboard" replace />} />
                 <Route path="dashboard" element={<Dashboard />} />
                 <Route path="analytics" element={<Analytics />} />
+                <Route path="lead-generation" element={<LeadGeneration />} />
               </Route>
             </Routes>
           </AuthProvider>
