@@ -9,42 +9,35 @@ import { ProductAnalytics } from '../components/analytics/ProductAnalytics'
 import { PipelineAnalytics } from '../components/analytics/PipelineAnalytics'
 import { CommercialPerformanceAnalytics } from '../components/analytics/CommercialPerformanceAnalytics'
 import { AIAnalytics } from '../components/ai/AIAnalytics'
-import { supabase } from '../lib/supabase'
-import type { Contact, Projet, Contrat } from '../lib/types'
 
 export default function Analytics() {
   const { user, loading } = useAuth()
   const navigate = useNavigate()
-  const [contacts, setContacts] = useState<Contact[]>([])
-  const [projets, setProjets] = useState<Projet[]>([])
-  const [contrats, setContrats] = useState<Contrat[]>([])
-  const [dataLoading, setDataLoading] = useState(true)
+  const [data, setData] = useState({
+    projets: [],
+    contrats: [],
+    contacts: []
+  })
 
   useEffect(() => {
-    if (user) {
-      loadData()
-    }
-  }, [user])
+    // Simuler le chargement des données
+    setData({
+      projets: [],
+      contrats: [],
+      contacts: []
+    })
+  }, [])
 
-  const loadData = async () => {
-    try {
-      const [contactsResult, projetsResult, contratsResult] = await Promise.all([
-        supabase.from('contact').select('*'),
-        supabase.from('projets').select('*'),
-        supabase.from('contrats').select('*')
-      ])
-
-      setContacts(contactsResult.data || [])
-      setProjets(projetsResult.data || [])
-      setContrats(contratsResult.data || [])
-    } catch (error) {
-      console.error('Erreur lors du chargement des données:', error)
-    } finally {
-      setDataLoading(false)
-    }
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+          <p className="text-muted-foreground">Chargement des analytics...</p>
+        </div>
+      </div>
+    )
   }
-
-  if (loading || dataLoading) return <div>Chargement...</div>
 
   if (!user) {
     navigate('/login')
@@ -52,38 +45,36 @@ export default function Analytics() {
   }
 
   return (
-    <Layout title="Analytics">
-      <div className="space-y-6">
-        <Tabs defaultValue="revenue" className="w-full">
-          <TabsList className="grid w-full grid-cols-5">
-            <TabsTrigger value="revenue">Revenus</TabsTrigger>
-            <TabsTrigger value="products">Produits</TabsTrigger>
-            <TabsTrigger value="pipeline">Pipeline</TabsTrigger>
-            <TabsTrigger value="commercial">Commercial</TabsTrigger>
-            <TabsTrigger value="ai">IA Insights</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="revenue" className="space-y-4">
-            <RevenueAnalytics projets={projets} contrats={contrats} />
-          </TabsContent>
-
-          <TabsContent value="products" className="space-y-4">
-            <ProductAnalytics projets={projets} contrats={contrats} />
-          </TabsContent>
-
-          <TabsContent value="pipeline" className="space-y-4">
-            <PipelineAnalytics projets={projets} contrats={contrats} />
-          </TabsContent>
-
-          <TabsContent value="commercial" className="space-y-4">
-            <CommercialPerformanceAnalytics contacts={contacts} projets={projets} contrats={contrats} />
-          </TabsContent>
-
-          <TabsContent value="ai" className="space-y-4">
-            <AIAnalytics contacts={contacts} projets={projets} contrats={contrats} />
-          </TabsContent>
-        </Tabs>
-      </div>
+    <Layout title="📊 Analytics & Intelligence">
+      <Tabs defaultValue="revenue" className="space-y-6">
+        <TabsList className="grid w-full grid-cols-5 bg-muted/30 p-1 rounded-xl">
+          <TabsTrigger value="revenue" className="rounded-lg">💰 Revenus</TabsTrigger>
+          <TabsTrigger value="products" className="rounded-lg">📦 Produits</TabsTrigger>
+          <TabsTrigger value="pipeline" className="rounded-lg">🎯 Pipeline</TabsTrigger>
+          <TabsTrigger value="commercial" className="rounded-lg">👔 Commercial</TabsTrigger>
+          <TabsTrigger value="ai" className="rounded-lg">🤖 IA</TabsTrigger>
+        </TabsList>
+        
+        <TabsContent value="revenue" className="space-y-6">
+          <RevenueAnalytics projets={data.projets} contrats={data.contrats} />
+        </TabsContent>
+        
+        <TabsContent value="products" className="space-y-6">
+          <ProductAnalytics projets={data.projets} contrats={data.contrats} />
+        </TabsContent>
+        
+        <TabsContent value="pipeline" className="space-y-6">
+          <PipelineAnalytics projets={data.projets} contrats={data.contrats} />
+        </TabsContent>
+        
+        <TabsContent value="commercial" className="space-y-6">
+          <CommercialPerformanceAnalytics contacts={data.contacts} projets={data.projets} contrats={data.contrats} />
+        </TabsContent>
+        
+        <TabsContent value="ai" className="space-y-6">
+          <AIAnalytics contacts={data.contacts} projets={data.projets} contrats={data.contrats} />
+        </TabsContent>
+      </Tabs>
     </Layout>
   )
 }

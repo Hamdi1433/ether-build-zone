@@ -1,6 +1,6 @@
 
 import React from 'react'
-import Sidebar from './Sidebar'
+import { Card } from '../src/components/ui/card'
 
 interface LayoutProps {
   children: React.ReactNode
@@ -9,18 +9,19 @@ interface LayoutProps {
 
 export function Layout({ children, title }: LayoutProps) {
   return (
-    <div className="flex h-screen bg-background">
-      <Sidebar />
-      <main className="flex-1 flex flex-col overflow-hidden">
-        {title && (
-          <header className="h-16 border-b bg-card px-6 flex items-center">
-            <h1 className="text-2xl font-bold text-foreground">{title}</h1>
-          </header>
-        )}
-        <div className="flex-1 overflow-auto p-6">
+    <div className="p-6 space-y-6">
+      {title && (
+        <div className="border-b border-border/40 pb-4">
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">
+            {title}
+          </h1>
+        </div>
+      )}
+      <Card className="border-0 shadow-xl bg-card/50 backdrop-blur-sm">
+        <div className="p-6">
           {children}
         </div>
-      </main>
+      </Card>
     </div>
   )
 }
