@@ -1,8 +1,8 @@
 
 import React, { useState, useEffect } from 'react'
-import { useAuth } from '../components/auth-provider'
+import { useAuth } from '../../components/auth-provider'
 import { useNavigate } from 'react-router-dom'
-import { Layout } from '../components/Layout'
+import { Layout } from '../../components/Layout'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs'
 import { RevenueAnalytics } from '../components/analytics/RevenueAnalytics'
 import { ProductAnalytics } from '../components/analytics/ProductAnalytics'
