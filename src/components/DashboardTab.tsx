@@ -29,7 +29,13 @@ export function DashboardTab() {
     growthRate: "0%",
     activeCampaigns: 0,
     crossSellOpportunities: 0,
-    aiScore: 85
+    aiScore: 85,
+    monthlyGrowth: 0,
+    churnRate: 0,
+    customerLifetimeValue: 0,
+    acquisitionCost: 0,
+    pipelineValue: 0,
+    forecastAccuracy: 0
   })
   const [loading, setLoading] = useState(true)
 
@@ -39,7 +45,6 @@ export function DashboardTab() {
 
   const loadStats = async () => {
     try {
-      // Récupérer les statistiques depuis Supabase
       const [
         { data: contacts },
         { data: contrats },
@@ -65,7 +70,13 @@ export function DashboardTab() {
         growthRate: "+12%",
         activeCampaigns: 5,
         crossSellOpportunities: Math.floor(activeClients * 0.3),
-        aiScore: 85
+        aiScore: 85,
+        monthlyGrowth: 12,
+        churnRate: 2.5,
+        customerLifetimeValue: totalRevenue > 0 ? totalRevenue / activeClients * 5 : 0,
+        acquisitionCost: 250,
+        pipelineValue: prospects * 1500,
+        forecastAccuracy: 87.5
       })
     } catch (error) {
       console.error('Erreur lors du chargement des stats:', error)
@@ -90,7 +101,7 @@ export function DashboardTab() {
           <CardContent>
             <div className="text-2xl font-bold">{stats.totalContacts.toLocaleString()}</div>
             <p className="text-xs text-muted-foreground">
-              +12% par rapport au mois dernier
+              +{stats.monthlyGrowth}% par rapport au mois dernier
             </p>
           </CardContent>
         </Card>

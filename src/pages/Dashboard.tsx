@@ -1,9 +1,9 @@
 
 import React from 'react'
-import { useAuth } from '../../components/auth-provider'
+import { useAuth } from '../components/auth-provider'
 import { useNavigate } from 'react-router-dom'
-import { Layout } from '../../components/Layout'
-import { DashboardTab } from '../../components/DashboardTab'
+import { Layout } from '../components/Layout'
+import { DashboardTab } from '../components/DashboardTab'
 
 export default function Dashboard() {
   const { user, loading } = useAuth()
